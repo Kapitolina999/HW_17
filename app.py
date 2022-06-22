@@ -132,7 +132,8 @@ class GenreView(Resource):
     def put(self, gid):
         genre = db.session.query(Genre).get(gid)
         data_genre = request.json
-        genre = Movie(**data_genre)
+        genre.id = data_genre['id']
+        genre.name = data_genre['name']
         db.session.add(genre)
         db.session.commit()
         return f"Данные жанра {genre.name} обновлены", 200
